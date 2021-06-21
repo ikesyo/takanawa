@@ -42,12 +42,16 @@ function postToSlack(options) {
   });
 }
 
-function fetchPageText(title) : string {
-  const url = `https://${SCRAPBOX_HOST}/api/pages/${SCRAPBOX_PROJECT}/${encodeURIComponent(title)}/text`;
-  const headers = { 'Cookie' : 'connect.sid=' + SCRAPBOX_COOKIE };
-  const response = UrlFetchApp.fetch(url, { method: "get", headers : headers });
+function fetchPageText(title): string {
+  if (SCRAPBOX_COOKIE) {
+    const url = `https://${SCRAPBOX_HOST}/api/pages/${SCRAPBOX_PROJECT}/${encodeURIComponent(title)}/text`;
+    const headers = { 'Cookie' : 'connect.sid=' + SCRAPBOX_COOKIE };
+    const response = UrlFetchApp.fetch(url, { method: "get", headers : headers });
 
-  return response.getContentText();
+    return response.getContentText();
+  } else {
+    return '';
+  }
 }
 
 function matchRules(title : string, body : string, diff : string) : Array<string> {
