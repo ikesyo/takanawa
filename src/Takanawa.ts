@@ -22,9 +22,6 @@ function doPost(event) {
         postToSlack({ attachment: attachment, channel: channels[j] });
       }
     }
-    else {
-      postToSlack({ attachment: attachment });
-    }
   }
 }
 
